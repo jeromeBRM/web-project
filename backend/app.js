@@ -13,7 +13,7 @@ let db = new sqlite3.Database('./db/main.sqlite', (err) => {
 });
 
 db.close((err) =>{
-  if(err){
+  if (err) {
     return console.error(err.message);
   }
   console.log('Close the database connection.');
