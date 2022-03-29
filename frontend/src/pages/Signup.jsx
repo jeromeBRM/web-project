@@ -2,11 +2,11 @@ import '../App.css';
 
 function Signup() {
   return (
-    <div className="App" lang="fr">
+    <div className="app" lang="fr">
       <header className="App-header">
       </header>
       <main className="App-main">
-        Connexion
+        Créer un compte
       </main>
       <footer className="App-footer">
       </footer>

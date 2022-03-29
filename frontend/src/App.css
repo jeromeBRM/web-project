@@ -1,20 +1,33 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+html {
+  --main-bg-color: #fdfdfd;
+  --menu-bg-color: #fdfdfd;
+  --label-dark: #222222;
+  --btn-active: #ff7675;
+  --btn-hover: #e06867;
+  --label-error: #d63031;
+  --label-success: #27ae60;
 }
 
-.App-logo {
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
 }
 
-.App-header {
+.app__btn--orange {
+  background-color: var(--btn-active);
+  color: #fdfdfd;
+  font-weight: 500;
+  padding: 1em;
+  text-align: center;
+  border-radius: 0.4em;
+  border: none;
+  cursor: pointer;
+  width: 100%;
 }
 
-.App-link {
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app__btn--orange:hover {
+  background-color: var(--btn-hover);
 }
