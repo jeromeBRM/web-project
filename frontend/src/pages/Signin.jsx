@@ -3,21 +3,23 @@ import '../App.css';
 
 function Signin() {
   return (
-    <div className="form--signup">
-      <form action="" method="post" class="form-example">
-        <div class="form-example">
+    <div className="menu__form--wrapper">
+      <form action="" method="post" className="form--wrapper">
+        <div className="form__item--wrapper">
           <label for="email">Adresse e-mail</label>
-          <input type="email" name="email" id="email" required />
+          <input type="email" name="email" id="email" required className="form__text--input" placeholder="Adresse e-mail"/>
         </div>
-        <div class="form-example">
+        <div className="form__item--wrapper">
           <label for="password">Mot de passe</label>
-          <input type="password" name="password" id="password" required />
+          <input type="password" name="password" id="password" required className="form__text--input" placeholder="Mot de passe"/>
         </div>
-        <div class="form-example">
-          <input type="submit" value="Connexion" className="app__btn--orange"/>
+        <div className="form__item--wrapper">
+          <div className="form__input--wrapper">
+            <input type="submit" value="Connexion" className="form__btn--orange"/>
+          </div>
         </div>
-        <Link to="/signup">J'ai oublié mon mot de passe</Link>
-        <Link to="/signup">Pas encore de compte ? Inscrivez-vous !</Link>
+        <Link to="/signup" className="menu__link--centered">J'ai oublié mon mot de passe</Link>
+        <Link to="/signup" className="menu__link--centered">Pas encore de compte ? Inscrivez-vous !</Link>
       </form>
     </div>
   );

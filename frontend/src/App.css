@@ -4,30 +4,87 @@ html {
   --main-bg-color: #fdfdfd;
   --menu-bg-color: #fdfdfd;
   --label-dark: #222222;
+  --label-light: #ffffff;
   --btn-active: #ff7675;
   --btn-hover: #e06867;
   --label-error: #d63031;
   --label-success: #27ae60;
+  --input-border-color: #adadad;
 }
 
 body {
   font-family: 'Roboto', sans-serif;
+  background-color: var(--menu-bg-color);
   font-weight: 400;
   font-size: 16px;
+  margin:0;
 }
 
-.app__btn--orange {
-  background-color: var(--btn-active);
-  color: #fdfdfd;
-  font-weight: 500;
-  padding: 1em;
+.menu__form--wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form--wrapper {
+  width:350px;
+}
+
+.menu__link--centered{
   text-align: center;
-  border-radius: 0.4em;
-  border: none;
-  cursor: pointer;
+}
+
+label {
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+  color: var(--btn-active);
+}
+
+.form__item--wrapper {
+  display: flex;
+  flex-direction: column;
+  gap:0.4em;
+}
+
+.form__input--wrapper {
   width: 100%;
 }
 
-.app__btn--orange:hover {
+.form--wrapper {
+  display: flex;
+  flex-direction: column;
+  gap:1.3em;
+}
+
+.form__text--input {
+  padding: 1em;
+  border-radius: 0.3em;
+  width: inherit;
+  border: 1px solid var(--input-border-color);
+  font-size: 16px;
+}
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+.form__btn--orange {
+  background-color: var(--btn-active);
+  color: var(--label-light);
+  font-weight: 500;
+  padding: 1em;
+  text-align: center;
+  border-radius: 0.3em;
+  border: none;
+  cursor: pointer;
+  width: inherit;
+  font-size: 16px;
+}
+
+.form__btn--orange:hover {
   background-color: var(--btn-hover);
 }
