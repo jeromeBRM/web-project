@@ -7,6 +7,7 @@ exports.get = () => {
         }
           console.log(data);
       })
+    next()
 }
 
 exports.signup = (req, res, next) => {
