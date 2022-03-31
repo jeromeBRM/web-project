@@ -2,22 +2,10 @@ const express = require('express');
 
 const app = express();
 
-const sqlite3 = require('sqlite3').verbose();
+const userRoutes = require('./routes/user');
 
-let db = new sqlite3.Database('./db/main.sqlite', (err) => {
-  if(err){
-    return console.error(err.message);
-  }
-
-  console.log('Connected to the main.sqlite database.');
-});
-
-db.close((err) =>{
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log('Close the database connection.');
-});
+//app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
 
 app.use((req, res, next) => {
   console.log('Requête reçue !');
