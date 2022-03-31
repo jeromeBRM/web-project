@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 const db = require('../database').db;
 
 exports.get = (req, res, next) => {
