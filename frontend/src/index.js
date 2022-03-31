@@ -6,7 +6,6 @@ import {
   Route,
 } from "react-router-dom";
 
-import './index.css';
 import Home from './pages/Home';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';

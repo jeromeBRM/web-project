@@ -5,6 +5,7 @@ html {
   --menu-bg-color: #fdfdfd;
   --label-dark: #222222;
   --label-light: #ffffff;
+  --btn-disabled: #ffa3a3;
   --btn-active: #ff7675;
   --btn-hover: #e06867;
   --label-error: #d63031;
@@ -85,6 +86,16 @@ textarea:focus, input:focus{
   font-size: 16px;
 }
 
+p.form__text--input--feedback{
+  margin: 0;
+  color: var(--label-error);
+}
+
 .form__btn--orange:hover {
   background-color: var(--btn-hover);
+}
+
+.form__btn--orange:disabled {
+  background-color: var(--btn-disabled);
+  cursor: unset;
 }
