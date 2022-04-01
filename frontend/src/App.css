@@ -99,3 +99,13 @@ p.form__text--input--feedback{
   background-color: var(--btn-disabled);
   cursor: unset;
 }
+
+div.app {
+  display: flex;
+  flex-direction: row;
+}
+
+div.app__todolist {
+  display: flex;
+  flex-direction: row;
+}
