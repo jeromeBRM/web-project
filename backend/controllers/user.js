@@ -1,4 +1,9 @@
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+const smtp = require('../smtp').EmailSender;
+
+console.log(smtp)
+
 const db = require('../database').db;
 const jwt = require('jsonwebtoken');
 
@@ -22,7 +27,7 @@ exports.signup = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
   };
   
-  exports.login = (req, res, next) => {
+  exports.signin = (req, res, next) => {
 
     db.get('select id, email, password from user where email = ?',[req.body.email], (err, row) => {
       const user = row
@@ -47,3 +52,29 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
     });
 };
+
+
+async function main() {
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.elasticemail.com',
+    port: 2525,
+    auth: {
+      user:'jerome@gmail.com',
+      pass:'E2525046C6BDF03F4E8F112922A96E4F9708'
+    },
+  });
+
+  let info = await transporter.sendMail({
+    from: '"Fred Foo " <jerome@gmail.com>',
+    to: "amelbos@hotmail.fr", 
+    subject: "Hello ✔",
+    text: "Hello world?",
+    html: "<b>Hello world?</b>",
+  });
+
+  console.log("Message sent: %s", info.messageId);
+
+  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+}
+
+main().catch();
