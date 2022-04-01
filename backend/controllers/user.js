@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
-const smtp = require('../smtp').EmailSender;
 
 console.log(smtp)
 
@@ -54,22 +53,22 @@ exports.signup = (req, res, next) => {
 };
 
 
-async function main() {
+async function main(req) {
+  
   let transporter = nodemailer.createTransport({
-    host: 'smtp.elasticemail.com',
-    port: 2525,
+    service: 'Gmail',
     auth: {
-      user:'jerome@gmail.com',
-      pass:'E2525046C6BDF03F4E8F112922A96E4F9708'
+      user: 'ProjetTutoreWeb@gmail.com',
+      pass: 'ProjetTutore',
     },
   });
 
   let info = await transporter.sendMail({
-    from: '"Fred Foo " <jerome@gmail.com>',
-    to: "amelbos@hotmail.fr", 
-    subject: "Hello ✔",
-    text: "Hello world?",
-    html: "<b>Hello world?</b>",
+    from: '" ToDoLister " <ProjetTutoreWeb@gmail.com>',
+    to: req.body.email, 
+    subject: "Vérification de mail ✔",
+    text: "Mail de confirmation",
+    html: "<b>Mail de confirmation</b>",
   });
 
   console.log("Message sent: %s", info.messageId);
