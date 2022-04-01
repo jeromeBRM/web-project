@@ -1,8 +1,6 @@
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 
-console.log(smtp)
-
 const db = require('../database').db;
 const jwt = require('jsonwebtoken');
 
@@ -53,7 +51,7 @@ exports.signup = (req, res, next) => {
 };
 
 
-async function main(req) {
+async function main() {
   
   let transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -65,7 +63,7 @@ async function main(req) {
 
   let info = await transporter.sendMail({
     from: '" ToDoLister " <ProjetTutoreWeb@gmail.com>',
-    to: req.body.email, 
+    to: "amelbos@hotmail.fr", 
     subject: "Vérification de mail ✔",
     text: "Mail de confirmation",
     html: "<b>Mail de confirmation</b>",
