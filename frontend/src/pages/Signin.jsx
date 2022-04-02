@@ -1,14 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import '../App.css';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import React from 'react';
 import { useState, useEffect } from "react";
 
-function Signin() {
+function Signin(props) {
   const [emailState, setEmailValue] = useState({ value:"", changed:false });
   const [passwordState, setPasswordValue] = useState({ value:"", changed:false });
   const [formSubmitState, setFormState] = useState(true);
+  const [formSubmitResult, setFormResult] = useState("");
 
   useEffect(() => {
     setFormState(emailState.value.includes("@") && passwordState.value !== "");
@@ -22,7 +23,7 @@ function Signin() {
 
     setFormState(false);
     
-    const response = await fetch("http://localhost:4200/api/auth/signin/", {
+    await fetch("http://localhost:4200/api/auth/signin/", {
       body: JSON.stringify({
         email: emailState.value,
         password: passwordState.value
@@ -31,13 +32,18 @@ function Signin() {
         "Content-Type": "application/json; charset=UTF-8",
       },
       method: "post"
-    }).finally(() => setFormState(true))
-  
-    if (response.ok) {
-      // TODO
-    } else {
-      console.log("fetch failed");
-    }
+    })
+    .then(async (response) => {
+      if (response.ok) {
+        await response.json()
+        .then((responseJson) => {
+          localStorage.setItem("token", JSON.stringify(responseJson));
+          props.successCallback(responseJson);
+        })
+      }
+      setFormResult("connected");
+    })
+    .finally(() => setFormState(true))
   }
 
   return (
@@ -47,6 +53,8 @@ function Signin() {
         <Input type="password" label="Mot de passe" val="password" required={ true } onchange={ (e) => setPasswordValue({value:e.target.value, changed:true}) } feedback={ passwordState.changed && passwordState.value.trim() === "" ? "Veuillez entrer un mot de passe valide" : "" } />
         <Button label="Connexion" onclick= { (e) => submitForm(e) } active={ formSubmitState } />
         <Link to="/signup" className="menu__link--centered">Pas encore de compte ? Inscrivez-vous !</Link>
+        <p className="menu__link--centered">{ formSubmitResult.message }</p>
+        { formSubmitResult === "connected" ? <Navigate to="app/todo" replace /> : "" }
       </form>
     </div>
   );
