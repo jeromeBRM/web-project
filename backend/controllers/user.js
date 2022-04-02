@@ -17,7 +17,7 @@ exports.getDatabase = (req, res, next) => {
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
-        db.run('insert into user (email, password) values (?,?)',[req.body.email,hash], (err) => {
+        db.run('insert into user (email, password, verifed) values (?,?,0)',[req.body.email,hash], (err) => {
           if (err) {
             res.status(400).json({ err });
           }
@@ -43,6 +43,7 @@ exports.signup = (req, res, next) => {
           }
           res.status(200).json({
             userId: user.id,
+            email: user.email,
             token: jwt.sign(
               { userId: user.id },
               'RANDOM_TOKEN_SECRET',
@@ -53,7 +54,7 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
     });
 };
-async function main() {
+/*async function main() {
   
   let transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -76,4 +77,4 @@ async function main() {
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 }
 
-main().catch();
+main().catch();*/
