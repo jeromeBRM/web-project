@@ -17,12 +17,16 @@ exports.getDatabase = (req, res, next) => {
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
-        db.run('insert into user (email, password) values (?,?)',[req.body.email,hash])
-          .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-          .catch(error => res.status(400).json({ error }));
+        db.run('insert into user (email, password) values (?,?)',[req.body.email,hash], (err) => {
+          if (err) {
+            res.status(400).json({ err });
+          }
+          else
+            res.status(201).json({ message: 'Utilisateur créé !' });
+        })
       })
       .catch(error => res.status(500).json({ error }));
-  };
+}
   
   exports.signin = (req, res, next) => {
 
@@ -49,8 +53,6 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
     });
 };
-
-
 async function main() {
   
   let transporter = nodemailer.createTransport({
