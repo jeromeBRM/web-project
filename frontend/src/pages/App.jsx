@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 
 
-function App() {
+function App(props) {
   return (
     <div className="app">
-      <Header />
+      <Header userCredentials={ props.userCredentials } logoutCallback={ props.logoutCallback } />
       <Outlet />
     </div>
   );

@@ -137,3 +137,15 @@ div.app__todolist {
 div.app__tasklist {
   width: 100%;
 }
+
+.app__debug {
+  position: absolute;
+  z-index: 1;
+  background-color: black;
+  color: rgb(74, 255, 74);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.app__debug--hidden {
+  display: none;
+}
