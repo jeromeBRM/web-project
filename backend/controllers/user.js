@@ -5,13 +5,15 @@ const db = require('../database').db;
 const jwt = require('jsonwebtoken');
 
 exports.getDatabase = (req, res, next) => {
-    db.each('select * from user' , (err, data) => {
+    db.all('select * from user' , (err, data) => {
         if(err){
           return console.error(err.message);
         }
+        else {
           console.log(data);
+          res.status(201).json(data);
+        }
       })
-    next()
 }
 
 exports.signup = (req, res, next) => {
@@ -30,7 +32,7 @@ exports.signup = (req, res, next) => {
   
   exports.signin = (req, res, next) => {
 
-    db.get('select id, email, password from user where email = ?',[req.body.email], (err, row) => {
+    db.get('select id, email, password from user where email = ? and verifed = 1',[req.body.email], (err, row) => {
       const user = row
     
       if (!user) {
