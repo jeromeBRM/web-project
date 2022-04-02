@@ -17,7 +17,7 @@ exports.getDatabase = (req, res, next) => {
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
-        db.run('insert into user (email, password, verifed) values (?,?,0)',[req.body.email,hash], (err) => {
+        db.run('insert into user (email, password, verifed, url_verification) values (?,?,0,"slt")',[req.body.email,hash], (err) => {
           if (err) {
             res.status(400).json({ err });
           }
@@ -54,6 +54,42 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
     });
 };
+
+exports.updateEmail = (req, res, next) => {
+  db.run('update user set email = ?  where id = ?',[req.body.email,req.body.id], (err) => {
+    if (err) {
+      res.status(400).json({ err });
+    }
+    else
+      res.status(201).json({ message: 'Email changé' });  
+  })
+}
+
+exports.updatePassword = (req, res, next) => {
+  bcrypt.hash(req.body.password, 10)
+  .then(hash => {
+    db.run('update user set password = ?  where id = ?',[hash,req.body.id], (err) => {
+      if (err) {
+        res.status(400).json({ err });
+        console.log(err)
+      }
+      else
+        res.status(201).json({ message: 'Mot de passe changé' });  
+    })
+  })
+  .catch(error => res.status(500).json({ error }));
+}
+
+exports.verify = (req, res, next) => {
+  db.get('update user set verifed = 1 where url_verification = ?',[req.query.url_verification], (err) => {
+    if (err) {
+      res.status(400).json({ err });
+    }
+    else
+      res.status(201).json({ message: 'Votre mail est bien vérifié' });  
+  })
+}
+
 /*async function main() {
   
   let transporter = nodemailer.createTransport({

@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 
 const userRoutes = require('./routes/user');
+const listRoutes = require('./routes/list');
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -16,6 +17,7 @@ app.use(express.json());
 
 
 app.use('/api/auth', userRoutes);
+app.use('/api/list', listRoutes)
 
 app.use((req, res, next) => {
   console.log('Requête reçue !');
