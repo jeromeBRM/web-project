@@ -3,6 +3,7 @@
 html {
   --main-bg-color: #fdfdfd;
   --menu-bg-color: #fdfdfd;
+  --header-bg-color: #f0f0f0;
   --label-dark: #222222;
   --label-light: #ffffff;
   --btn-disabled: #ffa3a3;
@@ -101,11 +102,38 @@ p.form__text--input--feedback{
 }
 
 div.app {
+  background-color: var(--main-bg-color);
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: row;
+  position: fixed;
+}
+
+div.app__header {
+  width: 350px;
+  position: relative;
+  background-color: var(--header-bg-color);
+  -webkit-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.2); 
+  box-shadow: 0px 0px 8px 1px rgb(0 0 0 / 20%);
+  flex-shrink: 0;
+}
+
+div.app__sidepanel {
+  width: 350px;
+  position: relative;
+  justify-content: end;
+  background-color: var(--header-bg-color);
+  border-left: 1px solid var(--input-border-color);
+  flex-shrink: 0;
 }
 
 div.app__todolist {
   display: flex;
   flex-direction: row;
+  width: 100%;
+}
+
+div.app__tasklist {
+  width: 100%;
 }

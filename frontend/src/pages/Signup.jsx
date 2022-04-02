@@ -10,6 +10,7 @@ function Signup() {
   const [passwordState, setPasswordValue] = useState({ value:"", changed:false });
   const [passwordRepeatState, setPasswordRepeatValue] = useState({ value:"", changed:false });
   const [formSubmitState, setFormState] = useState(true);
+  const [formSubmitResult, setFormResult] = useState({message:""});
 
   useEffect(() => {
     setFormState(passwordState.value === passwordRepeatState.value && emailState.value.includes("@") && passwordState.value !== "");
@@ -32,13 +33,23 @@ function Signup() {
         "Content-Type": "application/json; charset=UTF-8",
       },
       method: "post"
-    }).finally(() => setFormState(true))
-  
-    if (response.ok) {
-      // TODO
-    } else {
-      console.log("fetch failed");
-    }
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Something went wrong');
+    })
+    .then((responseJson) => {
+      // Do something with the response
+    })
+    .catch((error) => {
+      setFinally(error.message)
+    });
+  }
+
+  const setFinally = (responseJson) => {
+    setFormState(true);
+    setFormResult({message:responseJson});
   }
 
   return (
@@ -48,6 +59,7 @@ function Signup() {
           <Input type="password" label="Mot de passe" val="password" required={ true } onchange={ (e) => setPasswordValue({value:e.target.value, changed:true}) } feedback={ passwordState.changed && passwordState.value.trim() === "" ? "Veuillez entrer un mot de passe valide" : "" } />
           <Input type="password" label="Répéter le mot de passe" val="password-repeat" required={ true } onchange={ (e) => setPasswordRepeatValue({value:e.target.value, changed:true}) } feedback={ passwordRepeatState.changed && passwordRepeatState.value.trim() !== passwordState.value.trim() ? "Les mots de passe saisis ne correspondent pas !" : "" } />
           <Button label="Inscription" onclick= { (e) => submitForm(e) } active={ formSubmitState } />
+          <p className="menu__link--centered">{ formSubmitResult.message }</p>
       </form>
     </div>
   );

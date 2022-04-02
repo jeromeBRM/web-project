@@ -14,14 +14,17 @@ import Settings from './pages/Settings';
 import Todo from './pages/Todo';
 import TodoLoader from './pages/TodoLoader';
 
+const connected = true;
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={ connected ? <Navigate to="app/todo" replace /> : <Navigate to="signin" replace /> } />
+        <Route exact path="app" element={ connected ? <Navigate to="todo" replace /> : <Navigate to="../signin" replace /> } />
         <Route path="signup" element={<Signup />} />
         <Route path="signin" element={<Signin />} />
-        <Route path="/" element={<Navigate to="/signin" replace />} />
-        <Route path="app" element={<App />}>
+        <Route path="app" element={ connected ? <App /> : <Navigate to="../signin" replace /> }>
           <Route path="todo" element={<Todo />} >
             <Route path=":todoId" element={<TodoLoader />} />
           </Route>
