@@ -17,17 +17,41 @@ exports.getDatabase = (req, res, next) => {
 }
 
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
-      .then(hash => {
-        db.run('insert into user (email, password, verifed, url_verification) values (?,?,0,"slt")',[req.body.email,hash], (err) => {
-          if (err) {
-            res.status(400).json({ err });
-          }
-          else
-            res.status(201).json({ message: 'Utilisateur créé !' });
-        })
+
+  const sendMail = async (destination, verification_url) => {
+    let transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: 'ProjetTutoreWeb@gmail.com',
+        pass: 'ProjetTutore',
+      },
+    });
+  
+    await transporter.sendMail({
+      from: '" ToDoLister " <ProjetTutoreWeb@gmail.com>',
+      to: destination, 
+      subject: "Vérification de mail ✔",
+      text: "Mail de confirmation",
+      html: "<b>TodoLister : Vérifiez votre compte !</b><br><br><a href=\"http://localhost:4200/api/auth/verify?verification_url="+verification_url+"\">Confirmez votre adresse mail ici !</a>",
+    });
+  }
+
+  const random = require('crypto').randomBytes(32).toString('hex');
+  console.log(random);
+
+  bcrypt.hash(req.body.password, 10)
+    .then(hash => {
+      db.run('insert into user (email, password, verifed, url_verification) values (?,?,0,?)',[req.body.email,hash,random], (err) => {
+        if (err) {
+          res.status(400).json({ err });
+        }
+        else {
+          sendMail(req.body.email, random);
+          res.status(201).json({ message: 'Utilisateur créé !' });
+        }
       })
-      .catch(error => res.status(500).json({ error }));
+    })
+    .catch(error => res.status(500).json({ error }));
 }
   
   exports.signin = (req, res, next) => {
@@ -91,28 +115,3 @@ exports.verify = (req, res, next) => {
       res.status(201).json({ message: 'Votre mail est bien vérifié' });  
   })
 }
-
-/*async function main() {
-  
-  let transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-      user: 'ProjetTutoreWeb@gmail.com',
-      pass: 'ProjetTutore',
-    },
-  });
-
-  let info = await transporter.sendMail({
-    from: '" ToDoLister " <ProjetTutoreWeb@gmail.com>',
-    to: "amelbos@hotmail.fr", 
-    subject: "Vérification de mail ✔",
-    text: "Mail de confirmation",
-    html: "<b>Mail de confirmation</b>",
-  });
-
-  console.log("Message sent: %s", info.messageId);
-
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-}
-
-main().catch();*/
