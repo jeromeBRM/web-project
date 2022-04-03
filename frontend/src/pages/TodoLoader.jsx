@@ -33,7 +33,6 @@ function TodoLoader(props) {
       })
       .then((responseJson) => {
         setTasks(responseJson);
-        console.log(responseJson);
       })
       .catch((error) => {
       });

@@ -34,7 +34,9 @@ exports.create = (req, res, next) => {
 }
 
 exports.delete = (req, res, next) => {  
-    db.run('delete from list where id = ?; delete from task where list_id = ?;',[req.body.id], (err) => { 
+    db.run('delete from task where list_id = ?',[req.body.id], (err) => {
+    })
+    db.run('delete from list where id = ?',[req.body.id], (err) => { 
     
         if (err) {
             res.status(400).json({ err });
