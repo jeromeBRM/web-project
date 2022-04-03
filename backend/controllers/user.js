@@ -32,7 +32,7 @@ exports.signup = (req, res, next) => {
       to: destination, 
       subject: "Vérification de mail ✔",
       text: "Mail de confirmation",
-      html: "<b>TodoLister : Vérifiez votre compte !</b><br><br><a href=\"http://localhost:4200/api/auth/verify?verification_url="+verification_url+"\">Confirmez votre adresse mail ici !</a>",
+      html: "<b>TodoLister : Vérifiez votre compte !</b><br><br><a href=\"http://localhost:4200/api/auth/verify?url_verification="+verification_url+"\">Confirmez votre adresse mail ici !</a>",
     });
   }
 
