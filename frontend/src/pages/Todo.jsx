@@ -5,9 +5,9 @@ import TaskList from "../components/TaskList";
 function Todo() {
     return (
       <div className="app__todolist">
-        <TaskList>
+        <div className="app__tasklist">
           <Outlet />
-        </TaskList>
+        </div>
         <SidePanel />
       </div>
     );

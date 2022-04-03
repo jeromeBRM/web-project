@@ -43,7 +43,8 @@ function Top() {
           <Route path="signin" element={<Signin successCallback={ (newToken) => { setToken(newToken) } } />} />
           <Route path="app" element={ connected ? <App userCredentials={ token } logoutCallback={ disconnect } /> : <Navigate to="../signin" replace /> }>
             <Route path="todo" element={<Todo />} >
-              <Route path=":todoId" element={<TodoLoader />} />
+              <Route path=":todoId" element={<TodoLoader defaultTasks={ false } />} />
+              <Route path="" element={<TodoLoader defaultTasks={ true } />} />
             </Route>
             <Route path="settings" element={<Settings />} />
           </Route>

@@ -3,12 +3,11 @@ const db = require('../database').db;
 
 // lire les tasks d'une liste specifier par son id 
 exports.getTasksList = (req, res, next) => {
-    db.all('select * from task where list_id = ?', [req.query.list_id], (err,data) => {
+    db.all('select * from task where list_id = ?', [req.body.list_id], (err,data) => {
         if(err){
             return console.error(err.message);
         }
         else{
-            console.log(data);
             res.status(201).json(data)
         }
     })
@@ -27,7 +26,7 @@ exports.getTasksDeadline = (req, res, next) => {
 }
 
 exports.create = (req, res, next) => {  
-    db.run('insert into task (list_id, title, description, deadline, completed) values (?,?,?,?,0)',[req.body.list_id , req.body.title, req.body.description, req.body.deadline], (err) => { 
+    db.run('insert into task (list_id, title, description, deadline, completed) values (?,?,?,?,0)',[req.body.list_id , req.body.title !== "" ? req.body.title : "Nouvelle tâche", "", ""], (err) => { 
     
         if (err) {
             res.status(400).json({ err });
