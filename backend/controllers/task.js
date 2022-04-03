@@ -15,7 +15,7 @@ exports.getTasksList = (req, res, next) => {
 }
  // but recup toute les taches qui possede une deadline et qui appartienne a une liste creer par un utilisateur donc faire jointure
 exports.getTasksDeadline = (req, res, next) => {
-    db.run('select * from task inner join list on task.list_id = list.id where user_id = ? and task.deadline != null', [req.body.user_id], (err,data) => {
+    db.run('select * from task inner join list on task.list_id = list.id where user_id = ? and task.deadline != "" order by 5 desc', [req.body.user_id], (err,data) => {
         if(err){
             return console.error(err.message);
         }
@@ -27,7 +27,7 @@ exports.getTasksDeadline = (req, res, next) => {
 }
 
 exports.create = (req, res, next) => {  
-    db.run('insert into task (list_id, title, description, deadline, completed) values (?,?,?,?,0)',[req.body.list_id , req.body.title, req.body.description], (err) => { 
+    db.run('insert into task (list_id, title, description, deadline, completed) values (?,?,?,?,0)',[req.body.list_id , req.body.title, req.body.description, req.body.deadline], (err) => { 
     
         if (err) {
             res.status(400).json({ err });
