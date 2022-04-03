@@ -48,11 +48,21 @@ exports.delete = (req, res, next) => {
 }
 
 exports.update = (req, res, next) => {
-    db.run('update task set title = ? , description = ?, deadline = ?, completed = 1  where id = ?',[req.body.title, req.body.description, req.body.deadline, req.body.id], (err) => {
+    db.run('update task set title = ? , description = ?, deadline = ? where id = ?',[req.body.title, req.body.description, req.body.deadline, req.body.id], (err) => {
       if (err) {
         res.status(400).json({ err });
       }
       else
         res.status(201).json({ message: 'Tâche modifiée' });  
     })
-  }
+}
+
+exports.complete = (req, res, next) => {
+    db.run('update task set completed = ? where id = ?',[req.body.completed ? 1 : 0, req.body.id], (err) => {
+      if (err) {
+        res.status(400).json({ err });
+      }
+      else
+        res.status(201).json({ message: 'Tâche complétée' });
+    })
+}
