@@ -5,8 +5,10 @@ exports.getDatabaseList = (req, res, next) => {
     db.each('select * from list' , (err,data) => {
         if(err){
             return console.error(err.message);
-        }
+        }else{
             console.log(data);
+            res.status(201).json(data);
+        }
     })
 }
 
