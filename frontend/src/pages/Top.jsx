@@ -13,6 +13,7 @@ import Signup from '../pages/Signup';
 import Settings from '../pages/Settings';
 import Todo from '../pages/Todo';
 import TodoLoader from '../pages/TodoLoader';
+import Verify from '../pages/Verify';
 
 function getToken() {
   const tokenString = localStorage.getItem('token');
@@ -41,6 +42,7 @@ function Top() {
           <Route exact path="app" element={ connected ? <Navigate to="todo" replace /> : <Navigate to="../signin" replace /> } />
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin successCallback={ (newToken) => { setToken(newToken) } } />} />
+          <Route path="verify" element={<Verify/>} />
           <Route path="app" element={ connected ? <App userCredentials={ token } logoutCallback={ disconnect } /> : <Navigate to="../signin" replace /> }>
             <Route path="todo" element={<Todo />} >
               <Route path=":todoId" element={<TodoLoader defaultTasks={ false } />} />
