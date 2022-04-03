@@ -1,6 +1,5 @@
 const db = require('../database').db;
 
-
 // lire les tasks d'une liste specifier par son id 
 exports.getTasksList = (req, res, next) => {
     db.all('select * from task where list_id = ?', [req.body.list_id], (err,data) => {
