@@ -1,7 +1,6 @@
 const db = require('../database').db;
 
 
-
 exports.getDatabaseList = (req, res, next) => {
     db.each('select * from list' , (err,data) => {
         if(err){
