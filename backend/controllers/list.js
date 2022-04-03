@@ -2,11 +2,20 @@ const db = require('../database').db;
 
 
 exports.getDatabaseList = (req, res, next) => {
-    db.each('select * from list' , (err,data) => {
+    db.all('select * from list where user_id = ?' , req.body.userId, (err,data) => {
         if(err){
             return console.error(err.message);
         }else{
-            console.log(data);
+            res.status(201).json(data);
+        }
+    })
+}
+
+exports.get = (req, res, next) => {
+    db.each('select id, description from list where id = ?' , req.body.listId, (err,data) => {
+        if(err){
+            return console.error(err.message);
+        }else{
             res.status(201).json(data);
         }
     })
@@ -18,8 +27,9 @@ exports.create = (req, res, next) => {
         if (err) {
             res.status(400).json({ err });
         }
-         else
+         else {
             res.status(201).json({ message: 'Liste créée !' });
+         }
     })
 }
 
