@@ -1,6 +1,5 @@
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import '../App.css';
-import Button from '../components/Button';
 import React from 'react';
 
 function Verify() {
@@ -15,8 +14,8 @@ function Verify() {
 
   return (
       <div>
-        <Button label = "Se connecter" onClick= { () => { return <Navigate to="/signin"/> } } active={true}></Button>
-        Votre email a été vérifié !
+        <Link to = "/signin ">Se connecter</Link>
+        <p>Votre email a été vérifié !</p>
       </div>
   );
 }
