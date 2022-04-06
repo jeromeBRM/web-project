@@ -81,6 +81,52 @@ exports.signin = (req, res, next) => {
     });
 }
 
+exports.getDatabase = (req, res, next) => {
+  db.all('select * from user' , (err, data) => {
+      if(err){
+        return console.error(err.message);
+      }
+      else {
+        console.log(data);
+        res.status(201).json(data);
+      }
+    })
+}
+
+exports.resetPassword = (req, res, next) => {
+
+const sendMail = async (destination, verification_url) => {
+    let transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: 'ProjetTutoreWeb@gmail.com',
+        pass: 'ProjetTutore',
+      },
+    });
+
+    await transporter.sendMail({
+      from: '" ToDoLister " <ProjetTutoreWeb@gmail.com>',
+      to: destination, 
+      subject: "Changement de mot de passe",
+      text: "Changement de mot de passe",
+      html: "<b>TodoLister : Changez votre mot de passe !</b><br><br><a href=\"http://localhost:3000/update-password/"+verification_url+"\">Cliquez ici pour changer votre mot de passe!</a>",
+    });
+  }
+
+  const random = require('crypto').randomBytes(32).toString('hex');
+  console.log(random);
+
+      db.run('update user set url_verification = ? where email = ?',[random, req.body.email], (err) => {
+        if (err) {
+          res.status(400).json({ err });
+        }
+        else {
+          sendMail(req.body.email, random);
+          res.status(201).json({ message: 'Mot de passe changé !' });
+        }
+      })
+}
+
 exports.updateEmail = (req, res, next) => {
   db.run('update user set email = ?  where id = ?',[req.body.email, req.body.id], (err) => {
     if (err) {

@@ -52,10 +52,11 @@ function Signin(props) {
         <Input type="email" label="Adresse e-mail" val="email" required={ true } onchange={ (e) => setEmailValue({value:e.target.value, changed:true}) } feedback={ emailState.changed && !emailState.value.trim().includes("@") ? "Veuillez entrer une adresse e-mail valide" : "" } />
         <Input type="password" label="Mot de passe" val="password" required={ true } onchange={ (e) => setPasswordValue({value:e.target.value, changed:true}) } feedback={ passwordState.changed && passwordState.value.trim() === "" ? "Veuillez entrer un mot de passe valide" : "" } />
         <Button label="Connexion" onclick= { (e) => submitForm(e) } active={ formSubmitState } />
+        <Link to= "/forgotten-password" className="menu__link--centered">J'ai oublié mon mot de passe</Link>
         <Link to="/signup" className="menu__link--centered">Pas encore de compte ? Inscrivez-vous !</Link>
         <p className="menu__link--centered">{ formSubmitResult.message }</p>
         { formSubmitResult === "connected" ? <Navigate to="app/todo" replace /> : "" }
-      </form>
+      </form> 
     </div>
   );
 }

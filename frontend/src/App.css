@@ -107,7 +107,6 @@ div.app {
   width: 100vw;
   display: flex;
   flex-direction: row;
-  position: fixed;
 }
 
 div.app__header {
