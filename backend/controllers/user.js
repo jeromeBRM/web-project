@@ -97,7 +97,6 @@ exports.updatePassword = (req, res, next) => {
     db.run('update user set password = ?  where id = ?',[hash,req.body.id], (err) => {
       if (err) {
         res.status(400).json({ err });
-        console.log(err)
       }
       else
         res.status(201).json({ message: 'Mot de passe changé' });  
