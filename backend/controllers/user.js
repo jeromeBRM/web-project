@@ -54,7 +54,7 @@ exports.signup = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 }
   
-  exports.signin = (req, res, next) => {
+exports.signin = (req, res, next) => {
 
     db.get('select id, email, password from user where email = ? and verifed = 1',[req.body.email], (err, row) => {
       const user = row
@@ -79,10 +79,10 @@ exports.signup = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ error }));
     });
-};
+}
 
 exports.updateEmail = (req, res, next) => {
-  db.run('update user set email = ?  where id = ?',[req.body.email,req.body.id], (err) => {
+  db.run('update user set email = ?  where id = ?',[req.body.email, req.body.id], (err) => {
     if (err) {
       res.status(400).json({ err });
     }

@@ -1,9 +1,9 @@
 import Button from '../components/Button';
 import Input from '../components/Input';
 import React from 'react';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-function Settings() {
+function Settings(props) {
 
   const [emailState, setEmailValue] = useState({ value:"", changed:false });
   const [emailRepeatState, setEmailRepeatValue] = useState({ value:"", changed:false });
@@ -17,14 +17,19 @@ function Settings() {
     if (emailState.value !== emailRepeatState.value || emailState.value === "")
       return;
     
+    console.log(props.userCredentials.userId);
+
     await fetch("http://localhost:4200/api/auth/updateEmail/",{
       body: JSON.stringify({
-      email: emailState.value,
+      id: props.userCredentials.userId,
+      email: emailState.value
     }),
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
     },
     method: "post"
+    }).then( () => {
+      props.updateUserCredentialsCallback({ userId: props.userCredentials.userId, email:emailState.value, token: props.userCredentials.token });
     })
   }
   

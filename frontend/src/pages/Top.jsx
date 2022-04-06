@@ -30,6 +30,7 @@ function Top() {
   }
 
   useEffect(() => {
+    localStorage.setItem('token', JSON.stringify(token));
     setConnected(token.token !== "");
   }, [token]);
 
@@ -48,7 +49,7 @@ function Top() {
               <Route path=":todoId" element={<TodoLoader defaultTasks={ false } />} />
               <Route path="" element={<TodoLoader defaultTasks={ true } />} />
             </Route>
-            <Route path="settings" element={<Settings />} />
+            <Route path="settings" element={<Settings userCredentials={ token } updateUserCredentialsCallback={ (newToken) => setToken(newToken) } />} />
           </Route>
         </Routes>
       </BrowserRouter>
