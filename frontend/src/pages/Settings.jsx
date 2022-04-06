@@ -11,13 +11,13 @@ function Settings(props) {
   const [newPasswordState, setNewPasswordValue] = useState({ value:"", changed:false });
   const [newPasswordRepeatState, setNewPasswordRepeatValue] = useState({ value:"", changed:false });
  
+  
   const submitEmail = async (e) => {
     e.preventDefault();
     
     if (emailState.value !== emailRepeatState.value || emailState.value === "")
       return;
     
-    console.log(props.userCredentials.userId);
 
     await fetch("http://localhost:4200/api/auth/updateEmail/",{
       body: JSON.stringify({
@@ -53,9 +53,13 @@ function Settings(props) {
 
     return (
       <div className="app__settings">
+        <h1>Paramètres</h1>
+        <h2>Adresse e-mail</h2>
+        <p><b>Adresse e-mail actuelle : </b> { props.userCredentials.email}</p>
         <Input type="email" label = "Nouvelle adresse e-mail" val="email" required={ true } onchange={ (e) => setEmailValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
         <Input type="email" label = "Confirmer l'adresse e-mail" val="email-repeat" required={true} onchange={ (e) => setEmailRepeatValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
         <Button label ="Modifier l'adresse e-mail" onclick= { (e) => {submitEmail(e)} } active={ true } ></Button>
+        <h2>Mot de passe</h2>
         <Input type="password" label = "Mot de passe actuel" val="password" required={ true } onchange={ (e) => setPasswordValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
         <Input type="password" label = "Nouveau mot de passe" val="new-password" required={true} onchange={ (e) => setNewPasswordValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
         <Input type="password" label = "Confirmer Nouveau mot de passe" val="new-password-repeat" required={true} onchange={ (e) => setNewPasswordRepeatValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
