@@ -33,6 +33,7 @@ function TodoLoader(props) {
       })
       .then((responseJson) => {
         setTasks(responseJson);
+        console.log(responseJson);
       })
       .catch((error) => {
       });
@@ -43,6 +44,51 @@ function TodoLoader(props) {
         body: JSON.stringify({
           list_id: id,
           title: ntn
+        }),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        method: "post"
+      }).then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Something went wrong');
+      })
+      .then((responseJson) => {
+        getTasks(todoId);
+      })
+      .catch((error) => {
+      });
+    }
+
+    const deleteTask = async (taskId) => {
+      await fetch("http://localhost:4200/api/task/delete", {
+        body: JSON.stringify({
+          id: taskId
+        }),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        method: "post"
+      }).then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Something went wrong');
+      })
+      .then((responseJson) => {
+        getTasks(todoId);
+      })
+      .catch((error) => {
+      });
+    }
+
+    const switchCompletedState = async (taskId, completed) => {
+      await fetch("http://localhost:4200/api/task/complete", {
+        body: JSON.stringify({
+          id: taskId,
+          completed: !completed
         }),
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
@@ -109,7 +155,7 @@ function TodoLoader(props) {
       <div className="app__todoloader">
         <h1>{ props.defaultTasks ? "Prochaines tâches" : list.description }</h1>
         { props.defaultTasks ? "" : <button onClick={ () => deleteList(todoId) }>Supprimer la liste</button> }
-        <TaskList canCreate={ !props.defaultTasks } addNewTask={ () => { addNewTask(todoId, newTaskName) } } setNewTaskName={ (n) => { setNewTaskName(n) } } tasks={ tasks }/>
+        <TaskList canCreate={ !props.defaultTasks } addNewTask={ () => { addNewTask(todoId, newTaskName) } } deleteTask={ (taskId) => { deleteTask(taskId) } } switchCompletedState={ (taskId, taskCompleted) => switchCompletedState(taskId, taskCompleted) } setNewTaskName={ (n) => { setNewTaskName(n) } } tasks={ tasks }/>
         { deleteSuccess ? <Navigate to="app/todo" replace /> : "" }
       </div>
       

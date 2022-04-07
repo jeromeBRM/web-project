@@ -17,8 +17,7 @@ function ForgottenPassword() {
     }
     else if(emailState.value.includes("@")){
         setEmailFeedback("Si cette e-mail correspond à un compte existant, un mail a été envoyé");
-    } 
-    
+    }
         
     await fetch("http://localhost:4200/api/auth/resetPassword", {
       body: JSON.stringify({
