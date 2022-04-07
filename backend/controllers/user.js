@@ -81,18 +81,6 @@ exports.signin = (req, res, next) => {
     });
 }
 
-exports.getDatabase = (req, res, next) => {
-  db.all('select * from user' , (err, data) => {
-      if(err){
-        return console.error(err.message);
-      }
-      else {
-        console.log(data);
-        res.status(201).json(data);
-      }
-    })
-}
-
 exports.resetPassword = (req, res, next) => {
 
 const sendMail = async (destination, verification_url) => {
@@ -145,7 +133,7 @@ exports.updatePassword = (req, res, next) => {
         res.status(400).json({ err });
       }
       else
-        res.status(201).json({ message: 'Mot de passe changé' });  
+        res.status(201).json({ message: 'Le mot a été changé avec succès.' });  
     })
   })
   .catch(error => res.status(500).json({ error }));

@@ -46,7 +46,7 @@ function Top() {
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin successCallback={ (newToken) => { setToken(newToken) } } />} />
           <Route path="forgotten-password" element={<ForgottenPassword/>}></Route>
-          <Route path="update-password" element={<UpdatePassword/>}></Route>
+          <Route path="update-password/:url" element={<UpdatePassword/>}></Route>
           <Route path="verify/:url" element={<Verify/>} />
           <Route path="app" element={ connected ? <App userCredentials={ token } logoutCallback={ disconnect } /> : <Navigate to="../signin" replace /> }>
             <Route path="todo" element={<Todo />} >

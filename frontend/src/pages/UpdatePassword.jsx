@@ -6,22 +6,35 @@ import React from 'react';
 import { useState } from "react";
 
 function  UpdatePassword(props) {
+
+  const [newPasswordState, setNewPasswordValue] = useState({ value:"", changed:false });
+  const [newPasswordRepeatState, setNewPasswordRepeatValue] = useState({ value:"", changed:false });
   
   const { url } = useParams();
+    
+  const submitPassword = async (e) => {
+    e.preventDefault();
+  if (newPasswordState.value !== newPasswordRepeatState.value || newPasswordRepeatState.value === "" || newPasswordState.value === "")
+    return;
 
-  fetch("http://localhost:4200/api/auth/update-password?url_verification="+url, {
-  headers: {
-    "Content-Type": "application/json; charset=UTF-8",
-  },
-  method: "post"
-  })
+  await fetch("http://localhost:4200/api/auth/updatePassword?url_verification="+url, {
+    body: JSON.stringify({
+      id: props.userCredentials.userId,
+      password: newPasswordState.value,
+    }),
+    headers: {
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+    method: "post"
+    })
+  }
 
   return (
     <div className="menu__form--wrapper">
         <form action="" method="post" className="form--wrapper">
-        <Input type="password" label = "Nouveau mot de passe" val="new-password" required={true} onchange={ () => ({}) } feedback={ "" } ></Input>
-        <Input type="password" label = "Confirmer le nouveau mot de passe" val="new-password-repeat" required={true} onchange ={ () => ({}) } feedback={ "" } ></Input>
-        <Button label ="Modifier le mot de passe" onclick= { () => {} } active={ true } ></Button> 
+        <Input type="password" label = "Nouveau mot de passe" val="new-password" required={true} onchange={ (e) => setNewPasswordValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
+        <Input type="password" label = "Confirmer le nouveau mot de passe" val="new-password-repeat" required={true} onchange ={ (e) => setNewPasswordRepeatValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
+        <Button label ="Modifier le mot de passe" onclick= { (e) => {submitPassword(e)} } active={ true } ></Button> 
         </form>
     </div>
   );
