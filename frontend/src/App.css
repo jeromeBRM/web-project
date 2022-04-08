@@ -121,16 +121,27 @@ div.app__header {
 div.app__sidepanel {
   width: 350px;
   position: relative;
-  justify-content: end;
+  justify-content: start;
+  display: flex;
+  flex-direction: column;
   background-color: var(--header-bg-color);
   border-left: 1px solid var(--input-border-color);
   flex-shrink: 0;
+}
+
+div.app__sidepanel--hidden {
+  display: none;
 }
 
 div.app__todolist {
   display: flex;
   flex-direction: row;
   width: 100%;
+}
+
+div.app__todoloader {
+  display: flex;
+  width: -webkit-fill-available;
 }
 
 div.app__tasklist {
