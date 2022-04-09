@@ -13,7 +13,9 @@ function TodoLoader(props) {
     const [tasks, setTasks] = useState([]);
 
     const [sidePanel, setSidePanelDisplay] = useState({visible:false, focusedTask:null});
-    const [taskUpdateFields, setTaskUpdateFields] = useState({title:"", deadline:"", description:""});
+    const [taskUpdateTitle, setTaskUpdateTitle] = useState("");
+    const [taskUpdateDeadline, setTaskUpdateDeadline] = useState("");
+    const [taskUpdateDescription, setTaskUpdateDescription] = useState("");
 
     useEffect(() => {
       getList(todoId);
@@ -69,9 +71,9 @@ function TodoLoader(props) {
       await fetch("http://localhost:4200/api/task/update", {
         body: JSON.stringify({
           id: sidePanel.focusedTask.id,
-          title: taskUpdateFields.title,
-          deadline: taskUpdateFields.deadline,
-          description: taskUpdateFields.description
+          title: taskUpdateTitle,
+          deadline: taskUpdateDeadline,
+          description: taskUpdateDescription
         }),
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
@@ -86,7 +88,9 @@ function TodoLoader(props) {
       .then((responseJson) => {
         getTasks(todoId);
         setSidePanelDisplay({visible:false, focusedTask:null});
-        setTaskUpdateFields({title:"", deadline:"", description:""});
+        setTaskUpdateTitle("");
+        setTaskUpdateDeadline("");
+        setTaskUpdateDescription("");
       })
       .catch((error) => {
       });
@@ -185,8 +189,10 @@ function TodoLoader(props) {
     }
 
     const focusTask = (task) => {
-        setTaskUpdateFields(task);
-        setSidePanelDisplay({visible:true, focusedTask:task});
+        setTaskUpdateTitle(task.title);
+        setTaskUpdateDeadline(task.deadline);
+        setTaskUpdateDescription(task.description);
+        setSidePanelDisplay({visible:true, focusedTask:task})
     }
 
     return (
@@ -198,10 +204,10 @@ function TodoLoader(props) {
           { deleteSuccess ? <Navigate to="app/todo" replace /> : "" }
         </div>
         <SidePanel
-          updateTitleField={ (newTitle) => { setTaskUpdateFields({title:newTitle, deadline:taskUpdateFields.deadline, description:taskUpdateFields.description}) } }
-          updateDeadlineField={ (newDeadline) => { setTaskUpdateFields({title:taskUpdateFields.title, deadline:newDeadline, description:taskUpdateFields.description}) } }
-          updateDescriptionField={ (newDescription) => { setTaskUpdateFields({title:taskUpdateFields.title, deadline:taskUpdateFields.deadline, description:newDescription}) } }
-          save={ () => { updateTask() } } task={ taskUpdateFields } cancel={ () => setSidePanelDisplay({visible:false, focusedTask:null}) } visible={ sidePanel.visible } />
+          updateTitleField={ (newTitle) => { setTaskUpdateTitle(newTitle); } }
+          updateDeadlineField={ (newDeadline) => { setTaskUpdateDeadline(newDeadline) } }
+          updateDescriptionField={ (newDescription) => { setTaskUpdateDescription(newDescription) } }
+          save={ () => { updateTask() } } task={ sidePanel.focusedTask ? sidePanel.focusedTask : { title:"", deadline:"", description:"" } } cancel={ () => setSidePanelDisplay({visible:false, focusedTask:null}) } visible={ sidePanel.visible } />
       </div>
     );
   }
