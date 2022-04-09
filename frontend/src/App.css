@@ -121,7 +121,7 @@ div.app__header {
 div.app__sidepanel {
   width: 350px;
   position: relative;
-  justify-content: start;
+  justify-content: flex-start;
   display: flex;
   flex-direction: column;
   background-color: var(--header-bg-color);
