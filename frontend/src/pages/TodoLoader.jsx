@@ -19,13 +19,40 @@ function TodoLoader(props) {
 
     useEffect(() => {
       getList(todoId);
-      getTasks(todoId);
-    }, [todoId]);
+      if (todoId) {
+        getTasks(todoId);
+      }
+      else {
+        getTasksByDeadline(props.userCredentials.userId);
+      }
+    }, [todoId, props.userCredentials.userId]);
 
     const getTasks = async (listId) => {
       await fetch("http://localhost:4200/api/task/", {
         body: JSON.stringify({
           list_id: listId
+        }),
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        method: "post"
+      }).then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Something went wrong');
+      })
+      .then((responseJson) => {
+        setTasks(responseJson);
+      })
+      .catch((error) => {
+      });
+    }
+
+    const getTasksByDeadline = async (uId) => {
+      await fetch("http://localhost:4200/api/task/TasksDeadline", {
+        body: JSON.stringify({
+          user_id: uId
         }),
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
@@ -61,7 +88,12 @@ function TodoLoader(props) {
         throw new Error('Something went wrong');
       })
       .then((responseJson) => {
-        getTasks(todoId);
+        if (todoId) {
+          getTasks(todoId);
+        }
+        else {
+          getTasksByDeadline(props.userCredentials.userId);
+        }
       })
       .catch((error) => {
       });
@@ -86,7 +118,12 @@ function TodoLoader(props) {
         throw new Error('Something went wrong');
       })
       .then((responseJson) => {
-        getTasks(todoId);
+        if (todoId) {
+          getTasks(todoId);
+        }
+        else {
+          getTasksByDeadline(props.userCredentials.userId);
+        }
         setSidePanelDisplay({visible:false, focusedTask:null});
         setTaskUpdateTitle("");
         setTaskUpdateDeadline("");
@@ -112,7 +149,12 @@ function TodoLoader(props) {
         throw new Error('Something went wrong');
       })
       .then((responseJson) => {
-        getTasks(todoId);
+        if (todoId) {
+          getTasks(todoId);
+        }
+        else {
+          getTasksByDeadline(props.userCredentials.userId);
+        }
         if (taskId === sidePanel.focusedTask.id){
           setSidePanelDisplay({visible:false, focusedTask:null});
         }
@@ -138,7 +180,12 @@ function TodoLoader(props) {
         throw new Error('Something went wrong');
       })
       .then((responseJson) => {
-        getTasks(todoId);
+        if (todoId) {
+          getTasks(todoId);
+        }
+        else {
+          getTasksByDeadline(props.userCredentials.userId);
+        }
       })
       .catch((error) => {
       });
