@@ -5,7 +5,6 @@ const app = express();
 const userRoutes = require('./routes/user');
 const listRoutes = require('./routes/list');
 const taskRoutes = require('./routes/task');
-const stepRoutes = require('./routes/step');
 
 
 app.use((req, res, next) => {
@@ -22,7 +21,6 @@ app.use(express.json());
 app.use('/api/auth', userRoutes);
 app.use('/api/list', listRoutes);
 app.use('/api/task', taskRoutes);
-app.use('/api/step', stepRoutes);
 
 app.use((req, res, next) => {
   console.log('Requête reçue !');

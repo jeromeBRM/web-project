@@ -1,4 +1,5 @@
 function SidePanel(props) {
+  
     return (
         <div className={ props.visible ? "app__sidepanel" : "app__sidepanel--hidden" }>
           <label htmlFor="task-title">Titre</label>
