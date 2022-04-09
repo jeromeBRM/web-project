@@ -21,7 +21,16 @@ create table task (
     title text not null,
     description text,
     deadline date,
-    completed interger not null,
+    completed integer not null,
     constraint pk_task primary key (id),
     constraint fk_list foreign key (list_id) references list(id)
+);
+
+create table step (
+    id integer,
+    task_id integer not null,
+    description text,
+    completed interger not null,
+    constraint pk_step primary key (id),
+    constraint fk_task foreign key (task_id) references task(id)
 );
