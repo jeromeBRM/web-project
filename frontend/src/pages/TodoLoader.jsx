@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import TaskList from '../components/TaskList';
 import SidePanel from '../components/SidePanel';
+import Popup from '../components/Popup';
 
 function TodoLoader(props) {
     const { todoId } = useParams();
@@ -16,6 +17,8 @@ function TodoLoader(props) {
     const [taskUpdateTitle, setTaskUpdateTitle] = useState("");
     const [taskUpdateDeadline, setTaskUpdateDeadline] = useState("");
     const [taskUpdateDescription, setTaskUpdateDescription] = useState("");
+
+    const [taskToDelete, setListToDelete] = useState("");
 
     useEffect(() => {
       getList(todoId);
@@ -243,11 +246,12 @@ function TodoLoader(props) {
     }
 
     return (
-      <div className="app__todoloader"> 
+      <div className="app__todoloader">
+        { taskToDelete !== "" ? <Popup deleteForever={ () => { deleteList(todoId); } } cancel={ () => { setListToDelete("") } } title={ taskToDelete } /> : "" }
         <div className="app__tasklist">
           <div className="app__tasklist__w">
             <h1 className='app__tasklist__title'>{ props.defaultTasks ? "Prochaines tâches" : list.description }</h1>
-            { props.defaultTasks ? "" : <button className="app__tasklist__delete__list" onClick={ () => deleteList(todoId) }><div className="app__tasklist__delete__list--icon" />Supprimer la liste</button> }
+            { props.defaultTasks ? "" : <button className="app__tasklist__delete__list" onClick={ () => setListToDelete(list.description) }><div className="app__tasklist__delete__list--icon" />Supprimer la liste</button> }
           </div>
           <TaskList focusTask={ (t) => { focusTask(t) } } canCreate={ !props.defaultTasks } addNewTask={ () => { addNewTask(todoId, newTaskName) } } deleteTask={ (taskId) => { deleteTask(taskId) } } switchCompletedState={ (taskId, taskCompleted) => switchCompletedState(taskId, taskCompleted) } setNewTaskName={ (n) => { setNewTaskName(n) } } tasks={ tasks }/>
           { deleteSuccess ? <Navigate to="app/todo" replace /> : "" }
