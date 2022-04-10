@@ -9,9 +9,11 @@ html {
   --btn-disabled: #ffa3a3;
   --btn-active: #ff7675;
   --btn-hover: #e06867;
+  --btn-hover-dark: #9b9b9b;
   --label-error: #d63031;
   --label-success: #27ae60;
   --input-border-color: #adadad;
+  --task-details-color: #666666;
 }
 
 body {
@@ -23,11 +25,10 @@ body {
 }
 
 .app__header__link{
-  width: 139px;
-  height: 19px;
   color:var(--label-dark);
   font-weight: 700;
   font-size: 16px;
+  overflow: hidden;
 }
 
 .app__header__p{
@@ -35,12 +36,26 @@ body {
   color: var(--label-dark);
   font-weight: 500;
   font-size: 16px;
-  margin-top: 26px;
+  margin-top: 37px;
   margin-bottom: 26px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+.app__tasklist__task__delete{
+  background:none;
+  background-image: url("./img/delete.svg");
+  border: none;
+  height: 26px;
+  width: 26px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 0;
+  margin-right: 16px;
+  cursor: pointer;
 }
 
 .app__header_label--dashed{
@@ -80,7 +95,32 @@ li{
   padding:16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
+}
+
+.app__settings__c{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.app__settings__input__w{
+  display: flex;
+  flex-direction: column;
+  gap:16px;
+}
+
+.app__settings{
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  gap:48px;
+  width: 350px;
+}
+
+.no-margin{
+  margin: 0;
 }
 
 li{
@@ -93,10 +133,11 @@ li{
 .app__header__link__list{
   display: flex;
   flex-direction: column;
-  gap:10px;
+  gap:14px;
 }
 
 .app__header__top__home--icon{
+  flex-shrink: 0;
   width: 20px;
   height: 20px;
   background-image: url("./img/home.svg");
@@ -110,6 +151,15 @@ li{
   background: none;
   font-size: 16px;
   font-weight: 500;
+  padding: 0;
+}
+
+.app__header__top__newlist--input--small{
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0;
 }
 
 .app__header__top__createlist--icon{
@@ -121,6 +171,7 @@ li{
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .app__header__footer__settings--icon{
@@ -142,22 +193,15 @@ li{
 }
 
 .app__header__link1{
-  height: 19px;
-  left: 16px;
   color: var(--label-dark);
   font-weight: 400;
   font-size: 16px;
-  line-height: 19px;
 }
 
 .app__header__link2{
-  height: 19px;
-  left: 51px;
   color: var(--label-dark);
   font-weight: 500;
   font-size: 16px;
-  line-height: 19px;
-
 }
 
 textarea { 
@@ -166,7 +210,6 @@ textarea {
   box-sizing: border-box;
   border-radius: 4px;
 }
-
 
 .menu__form--wrapper {
   height: 100vh;
@@ -216,8 +259,55 @@ a {
   font-size: 16px;
 }
 
+.app__sidepanel__controls--save {
+  padding: 16px;
+  border-radius: 0.3em;
+  width: 50%;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: var(--btn-active);
+  color: var(--main-bg-color);
+  font-weight: 500;
+}
+
+.app__sidepanel__controls--save:hover{
+    background-color: var(--btn-hover);
+}
+
+.app__sidepanel__controls--cancel:hover{
+  background-color: var(--btn-hover-dark);
+}
+
+.app__sidepanel__controls--cancel {
+  padding: 16px;
+  border-radius: 0.3em;
+  width: 50%;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: var(--input-border-color);
+  color: var(--main-bg-color);
+  font-weight: 500;
+}
+
 textarea:focus, input:focus{
   outline: none;
+}
+
+.app__sidepanel__w{
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  padding-top: 32px;
+  gap:16px; 
+}
+
+.app__sidepanel__controls{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap:16px;
 }
 
 .form__btn--orange {
@@ -249,7 +339,6 @@ p.form__text--input--feedback{
 
 div.app {
   background-color: var(--main-bg-color);
-  height: 100vh;
   display: flex;
   flex-direction: row;
 }
@@ -266,8 +355,6 @@ div.app__sidepanel {
   justify-content: flex-start;
   display: flex;
   flex-direction: column;
-  background-color: var(--header-bg-color);
-  border-left: 1px solid var(--input-border-color);
   flex-shrink: 0;
 }
 
@@ -297,6 +384,148 @@ div.app__todoloader {
 
 div.app__tasklist {
   width: 100%;
+  padding: 16px;
+}
+
+.app__tasklist__ul {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  padding-top: 16px;
+}
+
+.app__tasklist__title {
+  margin:0;
+}
+
+.app__tasklist__item {
+  height: 48px;
+  border-top: 1px solid var(--input-border-color);
+}
+
+.app__tasklist__separator {
+  height: 1px;
+  border-top: 1px solid var(--input-border-color);
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.app__tasklist_task {
+  height: inherit;
+}
+
+.app__tasklist__task__details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.app__tasklist__task__button {
+  width: inherit;
+  padding: 0;
+  border: 0;
+  background: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap:6px;
+  height: 36px;
+  cursor: pointer;
+}
+
+.app__tasklist__task__details--row {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+  color: var(--task-details-color);
+  gap: 16px;
+}
+
+.app__tasklist__task__details__description {
+}
+
+.app__tasklist__addnewtask {
+  background: none;
+  border: none;
+  cursor: pointer;
+  background-image: url("./img/plus-black.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 22px;
+  height: 22px;
+  margin-left: 16px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.app__tasklist__delete__list {
+  padding:14px;
+  color:#fdfdfd;
+  background-color: #d63031;
+  border:none;
+  border-radius: 0.3em;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.app__tasklist__delete__list--icon {
+  background-image: url("./img/delete-forever.svg");
+  height: 20px;
+  width:20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.app__tasklist__w{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.app__tasklist__button--completetask{
+  padding: 0;
+  margin-left: 16px;
+  margin-right: 6px;
+  border-radius: 50%;
+  border:none;
+  background-color: var(--btn-active);
+  background-image: url("./img/check.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 73%;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.app__tasklist__button--uncompletetask{
+  padding: 0;
+  margin-left: 16px;
+  margin-right: 6px;
+  border-radius: 50%;
+  border:none;
+  background-color: var(--header-bg-color);
+  border: 1px solid var(--input-border-color);
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.app__tasklist__task__title--crossed{
+  text-decoration: line-through;
 }
 
 .app__debug {
@@ -311,3 +540,37 @@ div.app__tasklist {
   display: none;
 }
 
+.app__sidepanel__column{
+  display: flex;
+  flex-direction: column;
+  background-color: var(--header-bg-color);
+  border-left: 1px solid var(--input-border-color);
+  position: fixed;
+  height: 100%;
+  width: inherit;
+}
+
+.app__sidepanel__input{
+  display: flex;
+  flex-direction: column;
+  gap:8px;
+}
+
+.app__sidepanel__text--input {
+  padding: 14px;
+  border-radius: 0.3em;
+  width: inherit;
+  border: 1px solid var(--input-border-color);
+  font-size: 16px;
+  font-family: unset;
+}
+
+textarea {
+  padding: 14px;
+  border-radius: 0.3em;
+  width: inherit;
+  border: 1px solid var(--input-border-color);
+  font-size: 16px;
+  font-family: unset;
+  height: 128px;
+}

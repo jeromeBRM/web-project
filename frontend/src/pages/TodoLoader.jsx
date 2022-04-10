@@ -245,8 +245,10 @@ function TodoLoader(props) {
     return (
       <div className="app__todoloader"> 
         <div className="app__tasklist">
-          <h1>{ props.defaultTasks ? "Prochaines tâches" : list.description }</h1>
-          { props.defaultTasks ? "" : <button onClick={ () => deleteList(todoId) }>Supprimer la liste</button> }
+          <div className="app__tasklist__w">
+            <h1 className='app__tasklist__title'>{ props.defaultTasks ? "Prochaines tâches" : list.description }</h1>
+            { props.defaultTasks ? "" : <button className="app__tasklist__delete__list" onClick={ () => deleteList(todoId) }><div className="app__tasklist__delete__list--icon" />Supprimer la liste</button> }
+          </div>
           <TaskList focusTask={ (t) => { focusTask(t) } } canCreate={ !props.defaultTasks } addNewTask={ () => { addNewTask(todoId, newTaskName) } } deleteTask={ (taskId) => { deleteTask(taskId) } } switchCompletedState={ (taskId, taskCompleted) => switchCompletedState(taskId, taskCompleted) } setNewTaskName={ (n) => { setNewTaskName(n) } } tasks={ tasks }/>
           { deleteSuccess ? <Navigate to="app/todo" replace /> : "" }
         </div>

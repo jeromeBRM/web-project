@@ -54,17 +54,29 @@ function Settings(props) {
 
     return (
       <div className="app__settings">
-        <h1>Paramètres</h1>
-        <h2>Adresse e-mail</h2>
-        <p><b>Adresse e-mail actuelle : </b> { props.userCredentials.email}</p>
-        <Input type="email" label = "Nouvelle adresse e-mail" val="email" required={ true } onchange={ (e) => setEmailValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
-        <Input type="email" label = "Confirmer l'adresse e-mail" val="email-repeat" required={true} onchange={ (e) => setEmailRepeatValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
-        <Button label ="Modifier l'adresse e-mail" onclick= { (e) => {submitEmail(e)} } active={ true } ></Button>
-        <h2>Mot de passe</h2>
-        <Input type="password" label = "Mot de passe actuel" val="password" required={ true } onchange={ (e) => setPasswordValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
-        <Input type="password" label = "Nouveau mot de passe" val="new-password" required={true} onchange={ (e) => setNewPasswordValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
-        <Input type="password" label = "Confirmer Nouveau mot de passe" val="new-password-repeat" required={true} onchange={ (e) => setNewPasswordRepeatValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
-        <Button label ="Modifier le mot de passe" onclick= { (e) => {submitPassword(e)} } active={ true } ></Button> 
+        <h1 className="no-margin">Paramètres</h1>
+        <div className="app__settings__wra">
+          <div className="app__settings__c">
+            <h2 className="no-margin">Adresse e-mail</h2>
+            <p className="no-margin"><b>Adresse e-mail actuelle : </b> { props.userCredentials.email}</p>  
+          </div>
+          <div className="app__settings__input__w">
+            <Input type="email" label = "Nouvelle adresse e-mail" val="email" required={ true } onchange={ (e) => setEmailValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
+            <Input type="email" label = "Confirmer l'adresse e-mail" val="email-repeat" required={true} onchange={ (e) => setEmailRepeatValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
+            <Button label ="Modifier l'adresse e-mail" onclick= { (e) => {submitEmail(e)} } active={ true } ></Button>
+          </div>
+        </div>
+        <div className="app__settings__wra">
+          <div className="app__settings__c">
+            <h2 className="no-margin">Mot de passe</h2>
+          </div>
+          <div className="app__settings__input__w">
+            <Input type="password" label = "Mot de passe actuel" val="password" required={ true } onchange={ (e) => setPasswordValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
+            <Input type="password" label = "Nouveau mot de passe" val="new-password" required={true} onchange={ (e) => setNewPasswordValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
+            <Input type="password" label = "Confirmer le nouveau mot de passe" val="new-password-repeat" required={true} onchange={ (e) => setNewPasswordRepeatValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
+            <Button label ="Modifier le mot de passe" onclick= { (e) => {submitPassword(e)} } active={ true } ></Button> 
+          </div>
+        </div>
       </div>
     );
   }

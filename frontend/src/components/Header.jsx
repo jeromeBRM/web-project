@@ -5,7 +5,7 @@ function Header(props) {
     <div className="app__header">
       <ul className="app__header__column">
         <div className="app__header__top">
-          <li><div className="app__header__top__home--icon" /><Link to="todo"><h1 className="app__header__link">{ props.userCredentials.email }</h1></Link></li>
+          <li><div className="app__header__top__home--icon" /><Link to="todo" className="app__header__link"><h1 className="app__header__link">{ props.userCredentials.email }</h1></Link></li>
           <div className="app__header__p"><div className="app__header_label--dashed">Mes listes</div><div className="app__header__dash" /></div>
           <div className="app__header__link__list">
             { props.lists.map(list => {
