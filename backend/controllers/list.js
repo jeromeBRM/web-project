@@ -22,7 +22,7 @@ exports.get = (req, res, next) => {
 }
 
 exports.create = (req, res, next) => {  
-    db.run('insert into list (user_id, description) values (?,?)',[req.body.userId , req.body.description], (err) => { 
+    db.run('insert into list (user_id, description) values (?,?)',[req.body.userId , req.body.description !== "" ? req.body.description : "Nouvelle liste"], (err) => { 
     
         if (err) {
             res.status(400).json({ err });

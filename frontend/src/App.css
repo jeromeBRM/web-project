@@ -22,6 +22,152 @@ body {
   margin:0;
 }
 
+.app__header__link{
+  width: 139px;
+  height: 19px;
+  color:var(--label-dark);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.app__header__p{
+  height: 19px;
+  color: var(--label-dark);
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 26px;
+  margin-bottom: 26px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app__header_label--dashed{
+  flex-shrink: 0;
+  padding-right: 16px;
+}
+
+.app__header__dash{
+  background: var(--input-border-color);
+  height: 1px;
+  width: 100%;
+}
+
+ul.app__header__column{
+  width: inherit;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0;
+  margin:0;
+  background-color: var(--header-bg-color);
+  -webkit-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.2); 
+  box-shadow: 0px 0px 8px 1px rgb(0 0 0 / 20%);
+}
+
+li{
+  list-style: none;
+}
+
+.app__header__top{
+  padding:16px;
+}
+
+.app__header__footer{
+  padding:16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+li{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.app__header__link__list{
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+}
+
+.app__header__top__home--icon{
+  width: 20px;
+  height: 20px;
+  background-image: url("./img/home.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.app__header__top__newlist--input{
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.app__header__top__createlist--icon{
+  border: none;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background-image: url("./img/plus.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.app__header__footer__settings--icon{
+  width: 20px;
+  height: 20px;
+  background-image: url("./img/settings.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.app__header__footer__disconnect--icon{
+  width: 20px;
+  height: 20px;
+  background-image: url("./img/logout.svg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.app__header__link1{
+  height: 19px;
+  left: 16px;
+  color: var(--label-dark);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.app__header__link2{
+  height: 19px;
+  left: 51px;
+  color: var(--label-dark);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+
+}
+
+textarea { 
+  resize: none;
+  border: 1px solid #ADADAD;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+
 .menu__form--wrapper {
   height: 100vh;
   display: flex;
@@ -104,22 +250,18 @@ p.form__text--input--feedback{
 div.app {
   background-color: var(--main-bg-color);
   height: 100vh;
-  width: 100vw;
   display: flex;
   flex-direction: row;
 }
 
 div.app__header {
-  width: 350px;
+  width: 300px;
   position: relative;
-  background-color: var(--header-bg-color);
-  -webkit-box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.2); 
-  box-shadow: 0px 0px 8px 1px rgb(0 0 0 / 20%);
   flex-shrink: 0;
 }
 
 div.app__sidepanel {
-  width: 350px;
+  width: 300px;
   position: relative;
   justify-content: flex-start;
   display: flex;
@@ -131,6 +273,15 @@ div.app__sidepanel {
 
 div.app__sidepanel--hidden {
   display: none;
+}
+
+.app__sidepanel--input{
+  background: none;
+  border: 1px solid #ADADAD;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 div.app__todolist {
@@ -159,3 +310,4 @@ div.app__tasklist {
 .app__debug--hidden {
   display: none;
 }
+
