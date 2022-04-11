@@ -4,6 +4,7 @@ function SidePanel(props) {
         <div className={ props.visible ? "app__sidepanel" : "app__sidepanel--hidden" }>
           <div className="app__sidepanel__column">
             <div className="app__sidepanel__w">
+            <div className="app__header__close right" onClick={ () => { props.cancel(); } } />
               <div className="app__sidepanel__input">
                 <label htmlFor="task-title">Titre</label>
                 <input className="app__sidepanel__text--input" onChange={ (e) => { props.updateTitleField(e.target.value) } } type="text" id="task-title" name="task-title" defaultValue={ props.task.title } key={ "update-task-title"+props.task.id+props.task.title } ></input>

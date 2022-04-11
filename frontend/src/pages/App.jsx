@@ -66,7 +66,8 @@ function App(props) {
 
   return (
     <div className="app">
-      <Header lists={ lists } addNewList={ () => addNewList() } setNewListName={ (n) => { setNewListName(n) } } userCredentials={ props.userCredentials } logoutCallback={ props.logoutCallback } />
+      <div className={ props.menuDisplayed ? "app__header__cache" : "app__header__cache disabled" } />
+      <Header toggleMenu={ () => { props.toggleMenu(); } } enabled={ props.menuDisplayed } lists={ lists } addNewList={ () => addNewList() } setNewListName={ (n) => { setNewListName(n) } } userCredentials={ props.userCredentials } logoutCallback={ props.logoutCallback } />
       <Outlet></Outlet>
     </div>
   );

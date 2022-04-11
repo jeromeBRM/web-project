@@ -115,8 +115,6 @@ li{
 .app__settings{
   display: flex;
   flex-direction: column;
-  padding: 32px;
-  gap:48px;
   width: 350px;
 }
 
@@ -173,6 +171,7 @@ li{
   background-position: center;
   background-repeat: no-repeat;
   cursor: pointer;
+  background-color: transparent;
 }
 
 .app__header__footer__settings--icon{
@@ -383,9 +382,8 @@ div.app__todoloader {
   width: -webkit-fill-available;
 }
 
-div.app__tasklist {
+.ddddd {
   width: 100%;
-  padding: 16px;
 }
 
 .app__tasklist__ul {
@@ -416,6 +414,10 @@ div.app__tasklist {
   height: inherit;
 }
 
+.app__tasklist__wrapper {
+  padding: 16px;
+}
+
 .app__tasklist__task__details {
   width: 100%;
   display: flex;
@@ -444,9 +446,6 @@ div.app__tasklist {
   font-size: 12px;
   color: var(--task-details-color);
   gap: 16px;
-}
-
-.app__tasklist__task__details__description {
 }
 
 .app__tasklist__addnewtask {
@@ -673,4 +672,147 @@ textarea {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+div.app__settings__wra{
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 350px;
+}
+
+.app__title {
+  padding: 32px;
+  padding-bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.app__toggle--home {
+  display: none;
+}
+
+.app__header__close {
+  display: none;
+}
+
+.app__tasklist__w {
+  padding: 0;
+}
+
+@media screen and (max-width: 480px) {
+
+  .app__tasklist__w {
+    display: none;
+  }
+
+  .app__toggle--home {
+    display: block;
+    width: 22px;
+    height: 22px;
+    background-image: url("./img/menu.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
+  .app__header__close {
+    margin-bottom: 36px;
+    display: block;
+    width: 22px;
+    height: 22px;
+    background-image: url("./img/close.svg");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
+  .app__settings{
+    width: 100%;
+  }
+
+  .app__title{
+    padding: 16px;
+    background-color: var(--btn-active);
+    color: var(--label-light);
+    font-weight: 500;
+    font-size: 18px;
+    justify-content: unset;
+  }
+
+  h1{
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  div.app__settings__wra{
+    padding: 12px;
+  }
+
+  div.app__header {
+    position: fixed;
+    width:350px;
+    left:0px;
+    transition-property: left;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.34, 0.49, 0.17, 1);
+  }
+
+  div.app__header.disabled {
+    left:-350px;
+  }
+
+  .app__header__cache {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #00000061;
+    transition-property: background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.34, 0.49, 0.17, 1);
+    pointer-events: none;
+  }
+
+  .app__header__cache.disabled {
+    background-color: transparent;
+    pointer-events: none;
+  }
+
+  div.app__tasklist{
+    padding: 0;
+  }
+
+  div.app__sidepanel {
+    width: 350px;
+    position: fixed;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    right: 0;
+  }
+
+  .app__header__column {
+    background-color: var(--label-light)!important;
+  }
+  
+  div.app__sidepanel__column {
+    background-color: var(--label-light);
+  }
+
+  .app__header__close.right {
+    align-self: flex-end;
+  }
+
+  .app__tasklist__wrapper {
+    padding: 0px;
+  }
 }

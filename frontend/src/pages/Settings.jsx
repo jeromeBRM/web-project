@@ -10,7 +10,6 @@ function Settings(props) {
   const [passwordState, setPasswordValue] = useState({ value:"", changed:false });
   const [newPasswordState, setNewPasswordValue] = useState({ value:"", changed:false });
   const [newPasswordRepeatState, setNewPasswordRepeatValue] = useState({ value:"", changed:false });
- 
   
   const submitEmail = async (e) => {
     e.preventDefault();
@@ -54,7 +53,7 @@ function Settings(props) {
 
     return (
       <div className="app__settings">
-        <h1 className="no-margin">Paramètres</h1>
+        <div className="app__title"><div className="app__toggle--home" onClick={ () => props.toggleMenu() } /><h1 className="no-margin">Paramètres</h1></div>
         <div className="app__settings__wra">
           <div className="app__settings__c">
             <h2 className="no-margin">Adresse e-mail</h2>
@@ -65,8 +64,6 @@ function Settings(props) {
             <Input type="email" label = "Confirmer l'adresse e-mail" val="email-repeat" required={true} onchange={ (e) => setEmailRepeatValue({value:e.target.value, changed:true}) } feedback={ "" } ></Input>
             <Button label ="Modifier l'adresse e-mail" onclick= { (e) => {submitEmail(e)} } active={ true } ></Button>
           </div>
-        </div>
-        <div className="app__settings__wra">
           <div className="app__settings__c">
             <h2 className="no-margin">Mot de passe</h2>
           </div>

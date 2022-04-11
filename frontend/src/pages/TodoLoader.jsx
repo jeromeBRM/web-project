@@ -247,14 +247,20 @@ function TodoLoader(props) {
 
     return (
       <div className="app__todoloader">
+        <div className={ sidePanel.visible ? "app__header__cache" : "app__header__cache disabled" } />
         { taskToDelete !== "" ? <Popup deleteForever={ () => { deleteList(todoId); } } cancel={ () => { setListToDelete("") } } title={ taskToDelete } /> : "" }
-        <div className="app__tasklist">
-          <div className="app__tasklist__w">
+        <div className="ddddd">
+          <div className="app__title">
+          <div className="app__toggle--home" onClick={ () => props.toggleMenu() } />
             <h1 className='app__tasklist__title'>{ props.defaultTasks ? "Prochaines tâches" : list.description }</h1>
+            <div className="app__tasklist__w">
             { props.defaultTasks ? "" : <button className="app__tasklist__delete__list" onClick={ () => setListToDelete(list.description) }><div className="app__tasklist__delete__list--icon" />Supprimer la liste</button> }
           </div>
+          </div>
+        <div className="app__tasklist">
           <TaskList focusTask={ (t) => { focusTask(t) } } canCreate={ !props.defaultTasks } addNewTask={ () => { addNewTask(todoId, newTaskName) } } deleteTask={ (taskId) => { deleteTask(taskId) } } switchCompletedState={ (taskId, taskCompleted) => switchCompletedState(taskId, taskCompleted) } setNewTaskName={ (n) => { setNewTaskName(n) } } tasks={ tasks }/>
           { deleteSuccess ? <Navigate to="app/todo" replace /> : "" }
+        </div>
         </div>
         <SidePanel
           updateTitleField={ (newTitle) => { setTaskUpdateTitle(newTitle); } }
