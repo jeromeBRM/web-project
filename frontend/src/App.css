@@ -800,8 +800,10 @@ div.app__settings__wra{
     right: 0;
   }
 
-  .app__header__column {
+  ul.app__header__column {
     background-color: var(--label-light)!important;
+    -webkit-box-shadow: unset;
+    box-shadow: unset;
   }
   
   div.app__sidepanel__column {
