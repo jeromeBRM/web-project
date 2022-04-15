@@ -24,7 +24,7 @@ function  UpdatePassword(props) {
 
   await fetch("http://localhost:4200/api/auth/updatePassword?url_verification="+url, {
     body: JSON.stringify({
-      id: props.userCredentials.userId,
+      url: url,
       password: newPasswordState.value,
     }),
     headers: {

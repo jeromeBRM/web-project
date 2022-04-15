@@ -128,7 +128,7 @@ exports.updateEmail = (req, res, next) => {
 exports.updatePassword = (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
   .then(hash => {
-    db.run('update user set password = ?  where id = ?',[hash,req.body.id], (err) => {
+    db.run('update user set password = ?  where url_verification = ?',[hash,req.body.url], (err) => {
       if (err) {
         res.status(400).json({ err });
       }
